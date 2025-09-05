@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Collector</title>
+    <style>
+      body { font: 13px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; padding: 14px; min-width: 360px; }
+      h1 { font-size: 16px; margin: 0 0 10px; }
+      .row { margin: 10px 0; }
+      button { padding: 8px 12px; margin-right: 6px; }
+      pre { white-space: pre-wrap; background: #f5f5f7; padding: 8px; border-radius: 6px; max-height: 260px; overflow: auto; }
+      .muted { color: #666; }
+      .ok { color: #08660b; }
+      .err { color: #a40000; }
+    </style>
+  </head>
+  <body>
+    <h1>Clipboard Collector</h1>
+    <div class="row muted">
+      <div>PNG base name: <code id="shot"></code></div>
+      <div>On the page you just captured, click <b>Copy to Clipboard</b>, then click <b>Done</b> here.</div>
+    </div>
+    <div class="row">
+      <button id="done">Done</button>
+      <span id="status" class="muted">Waiting for your copy…</span>
+    </div>
+    <div class="row"><pre id="out"></pre></div>
+    <script src="collector.js"></script>
+  </body>
+</html>

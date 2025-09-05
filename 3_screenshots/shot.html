@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Desktop Screenshots (Interval + Log)</title>
+    <style>
+      body { font: 14px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; margin: 16px; }
+      label { display:block; margin-top:10px; }
+      input { padding:6px; width: 240px; }
+      button { padding: 8px 12px; margin-right: 8px; margin-top: 12px; }
+      #log { background:#0b0b0b; color:#d8d8d8; padding:10px; margin-top:12px; border-radius:6px; max-height: 360px; overflow:auto; white-space: pre-wrap; }
+      .muted { color:#888; }
+    </style>
+  </head>
+  <body>
+    <h3>Desktop Screenshots (Interval + Log)</h3>
+    <div class="muted">Shots save to <b>Downloads/DesktopScreenshots</b>. A <em>session log</em> is written with the start-time prefix.</div>
+
+    <label for="prefix">Filename prefix (optional)</label>
+    <input id="prefix" placeholder="e.g. demo" />
+
+    <label for="interval">Interval (seconds)</label>
+    <input id="interval" type="number" min="1" value="5" />
+
+    <label for="duration">Duration (seconds)</label>
+    <input id="duration" type="number" min="1" value="60" />
+
+    <div>
+      <button id="start">Start</button>
+      <button id="stop">Stop</button>
+    </div>
+
+    <div id="log" aria-live="polite"></div>
+
+    <script src="shot.js"></script>
+  </body>
+</html>
