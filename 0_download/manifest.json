@@ -1,0 +1,29 @@
+
+{
+"manifest_version": 3,
+"name": "Drive File Downloader",
+"version": "1.0",
+"icons": {
+  "16": "icons/icon16.png",
+  "32": "icons/icon32.png",
+  "48": "icons/icon48.png",
+  "128": "icons/icon128.png",
+  "256": "icons/icon256.png"
+},
+"description": "Downloads a specific file from Google Drive by reading its ID from Google Sheets.",
+"permissions": [
+  "identity",
+  "storage",
+  "downloads"
+],
+"action": {
+"default_popup": "popup.html"
+},
+"oauth2": {
+  "client_id": "490906539985-hemh2hlv8ros992iec96cl9lsfg748kj.apps.googleusercontent.com",
+  "scopes": [
+    "https://www.googleapis.com/auth/spreadsheets.readonly",
+    "https://www.googleapis.com/auth/drive.readonly"
+  ]
+}
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folder Uploader</title>
+    <!-- Use a local Tailwind CSS file to comply with CSP -->
+   <link rel="stylesheet" href="css/tailwind.css" />
+    <style>
+        body {
+            width: 370px;
+            min-height: 200px;
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            padding: 1rem;
+        }
+        #folderInput {
+            display: none !important;
+        }
+		button {
+		  width: 100%;
+		  padding: 0.75rem;
+		  background-color: #4a90e2;
+		  color: white;
+		  border: none;
+		  border-radius: 8px;
+		  font-size: 1rem;
+		  font-weight: 600;
+		  cursor: pointer;
+		  transition: background-color 0.2s ease, transform 0.1s ease;
+		}
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+
+    <div class="p-4 rounded-2xl text-center">
+        <h1 class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2">Folder Uploader</h1>
+        
+        <!-- Hidden file input for folder selection -->
+        <input type="file" id="folderInput" webkitdirectory directory>
+        
+        <!-- Button to trigger the file selection dialog -->
+        <button id="uploadButton">
+            Select Folder and Upload
+        </button>
+
+        <!-- Status and message display area -->
+        <div id="status" class="mt-4 p-3 rounded-xl bg-gray-200 dark:bg-gray-700 text-left text-sm">
+            <p class="text-gray-700 dark:text-gray-300">Awaiting folder selection...</p>
+        </div>
+    </div>
+
+    <script src="uploader.js"></script>
+</body>
+</html>

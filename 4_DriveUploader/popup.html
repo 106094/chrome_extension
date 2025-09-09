@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folder Uploader</title>
+    <!-- Use a local Tailwind CSS file to comply with CSP -->
+    <link rel="stylesheet" href="css/tailwind.css" />
+    <style>
+        body {
+            width: 200px;
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            padding: 1rem;
+			overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 w-[330px] h-[550px] overflow-hidden">
+    <div class="p-4 rounded-2xl text-center">
+        <h1 class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2">Folder Uploader</h1>
+
+        <!-- Button to open the uploader window -->
+        <button id="openUploaderButton" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-3 rounded-xl transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            Open Uploader
+        </button>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
