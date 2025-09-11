@@ -1,7 +1,7 @@
 
 {
 "manifest_version": 3,
-"name": "Drive File Downloader",
+"name": "0_Download",
 "version": "1.0",
 "icons": {
   "16": "icons/icon16.png",
@@ -13,7 +13,6 @@
 "description": "Downloads a specific file from Google Drive by reading its ID from Google Sheets.",
 "permissions": [
   "identity",
-  "storage",
   "downloads"
 ],
 "action": {
