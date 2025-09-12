@@ -3,7 +3,7 @@
 # Generate timestamped log file
 timestamp=$(date +"%Y%m%d_%H%M%S")
 logdir="/home/chronos/user/MyFiles/log_$timestamp"
-endline="======END=====" 
+endline="======END====="
 mkdir -p "$logdir"
 chmod -R a+rwX "$logdir"
 default_logfile="$logdir/runtest_all.log"
@@ -37,41 +37,63 @@ logrun() {
   clear
   if (( use_shell )); then
     # log the command line
-    if [[ -n "$addlog" ]]; then
-      echo "$(pwd) \$ $cmdstr" | tee -a "$default_logfile" | tee -a "$addlog" 
-    { bash -lc "$cmdstr"; echo "======END====="; } 2>&1 \
-      | sed -r 's/\x1B\[[0-9;?]*[ -/]*[@-~]//g' \
-      | tee -a "$default_logfile" \
-      | { [[ -n "$addlog" ]] && tee -a "$addlog" || cat; } \
-      | soft_pause "${PAUSE_SECS:-2}"
-    else
-      echo "$(pwd) \$ $cmdstr" | tee -a "$default_logfile"
-    { bash -lc "$cmdstr"; echo "======END====="; } 2>&1 \
-      | sed -r 's/\x1B\[[0-9;?]*[ -/]*[@-~]//g' \
-      | tee -a "$default_logfile" \
-      | soft_pause "${PAUSE_SECS:-2}"
-    fi
+   if [[ -n "$addlog" ]]; then
+  echo "$(pwd) \$ $cmdstr" | tee -a "$default_logfile" | tee -a "$addlog"
+
+  # Run the command, pipe output to both logs
+  bash -lc "$cmdstr" 2>&1 \
+    | sed -r 's/\x1B\[[0-9;?]*[ -/]*[@-~]//g' \
+    | tee -a "$default_logfile" \
+    | tee -a "$addlog" \
+    | soft_pause "${PAUSE_SECS:-2}"
+
+  # Append END marker only to default log
+  echo "======END=====" >> "$default_logfile"
+else
+  echo "$(pwd) \$ $cmdstr" | tee -a "$default_logfile"
+
+  bash -lc "$cmdstr" 2>&1 \
+    | sed -r 's/\x1B\[[0-9;?]*[ -/]*[@-~]//g' \
+    | tee -a "$default_logfile" \
+    | soft_pause "${PAUSE_SECS:-2}"
+
+  echo "======END=====" >> "$default_logfile"
+fi
   else
     # argv mode (no shell operators)
     if [[ $# -eq 0 ]]; then
       echo "Usage: logrun [-l LOGNAME] [-c 'cmd...'] command [args...]"; return 2
     fi
     if [[ -n "$addlog" ]]; then
+      # Log command line to both logs
       echo "$(pwd) \$ $*" | tee -a "$default_logfile" | tee -a "$addlog"
-     { "$@"; echo "======END====="; } 2>&1 \
-      | sed -r 's/\x1B\[[0-9;?]*[ -/]*[@-~]//g' \
-      | tee -a "$default_logfile" \
-      | { [[ -n "$addlog" ]] && tee -a "$addlog" || cat; } \
-      | soft_pause "${PAUSE_SECS:-2}"
+
+      # Run command, log output to both
+      { "$@"; } 2>&1 \
+        | sed -r 's/\x1B\[[0-9;?]*[ -/]*[@-~]//g' \
+        | tee -a "$default_logfile" \
+        | tee -a "$addlog" \
+        | soft_pause "${PAUSE_SECS:-2}"
+
+      # End marker → only default log
+      echo "======END=====" >> "$default_logfile"
+
     else
-      echo "$(pwd) \$ $*"; echo "$(pwd) \$ $*" >>"$default_logfile"
-      { "$@"; echo "======END=====";} 2>&1 \
-      | sed -r 's/\x1B\[[0-9;?]*[ -/]*[@-~]//g' \
-      | tee -a "$default_logfile" \
-      | soft_pause "${PAUSE_SECS:-2}"
+      # Log command line only to default
+      echo "$(pwd) \$ $*"
+      echo "$(pwd) \$ $*" >> "$default_logfile"
+
+      # Run command, log output
+      { "$@"; } 2>&1 \
+        | sed -r 's/\x1B\[[0-9;?]*[ -/]*[@-~]//g' \
+        | tee -a "$default_logfile" \
+        | soft_pause "${PAUSE_SECS:-2}"
+
+      # End marker → only default log
+      echo "======END=====" >> "$default_logfile"
     fi
   fi
- sleep 2
+ #sleep 2
 }
 
 
@@ -86,7 +108,7 @@ logrun -l chipinfo -c 'ectool chipinfo'
 logrun -l version -c 'ectool version'
 logrun -l lsb_release -c 'cat /etc/lsb-release'
 logrun -l lsb_desc -c 'cat /etc/lsb-release | grep RELEASE_DESC'
-logrun -l lsautotest -c 'ls /usr/local/autotest'
+logrun -l lsautotest -c 'ls -dl /usr/local/autotest'
 logrun -l system -c 'lshw -C system'
 logrun -l cpu -c 'lshw -C cpu'
 logrun -l memory -c 'lshw -C memory'

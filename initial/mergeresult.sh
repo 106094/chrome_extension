@@ -8,6 +8,7 @@ screenshots_folder="${main_folder}/screenshots"
 logs_folder="${main_folder}/logs"
 mkdir -p "$screenshots_folder" "$logs_folder"
 chmod -R a+rwX "$top_folder"
+: <<'END_COMMENT'
 #copy image files
 latest_log=$(ls -t "/home/chronos/user/Downloads/DesktopScreenshots/"*desktop.txt 2>/dev/null | head -n 1)
 # Check if a log file was found.
@@ -31,7 +32,7 @@ if [[ -f "$latest_log" ]]; then
 else
     echo "No desktop log files found in Downloads/DesktopScreenshots/."
 fi
-
+END_COMMENT
 #copy log files
 latest_log_dir=$(ls -td "/home/chronos/user/MyFiles/log"* 2>/dev/null | head -n 1)
 
