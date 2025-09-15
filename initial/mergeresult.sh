@@ -50,7 +50,7 @@ else
 fi
 
 # Find and copy the latest About Version.txt file
-latest_version_txt=$(ls -t "/home/chronos/user/Downloads/About Version"*.txt 2>/dev/null | head -n 1)
+latest_version_txt=$(ls -t "/home/chronos/user/MyFiles/Downloads/About Version"*.txt 2>/dev/null | head -n 1)
 if [[ -f "$latest_version_txt" ]]; then
     cp -v "$latest_version_txt" "$main_folder"
    echo "Copying version files completed."
@@ -59,7 +59,7 @@ else
 fi
 
 # Find and copy the latest About Version.png file
-latest_version_png=$(ls -t "/home/chronos/user/Downloads/About Version"*.png 2>/dev/null | head -n 1)
+latest_version_png=$(ls -t "/home/chronos/user/MyFiles/Downloads/About Version"*.png 2>/dev/null | head -n 1)
 if [[ -f "$latest_version_png" ]]; then
     cp -v "$latest_version_png" "$main_folder"
     echo "Copying version image completed."
